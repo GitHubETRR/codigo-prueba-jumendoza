@@ -8,7 +8,7 @@ int main()
     hor=seg/3600;
     min=(seg%3600)/60;
     segf=(seg%3600)%60;
-    printf("sus segundos equvalen a %d horas, %d minutos y %d segundos", hor, min, segf);
+    printf("sus segundos equivalen a %d horas, %d minutos y %d segundos", hor, min, segf);
 
     return 0;
 }
