@@ -1,3 +1,7 @@
+#include <stdio.h>
+
+int mayorDeDos (int, int);
+
 int main()
 {
     int A, B;
