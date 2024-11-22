@@ -1,0 +1,52 @@
+#include <string.h>
+
+typedef struct {
+    char nombre[50];
+    int vida;
+    int ataque;
+    int defensa;
+} Personaje;
+
+void atacar(Personaje *atacante, Personaje *defensor) {
+    int daño = atacante->ataque - defensor->defensa;
+    if (daño < 0) daño = 0; // para evitar daño negativo
+    defensor->vida -= daño;
+    if (defensor->vida < 0) defensor->vida = 0; // la vida no puede ser negativa
+    printf("%s ataca a %s causando %d de daño. Vida restante de %s: %d\n", 
+           atacante->nombre, defensor->nombre, daño, defensor->nombre, defensor->vida);
+}
+
+void mostrarEstadisticas(Personaje p) {
+    printf("Nombre: %s\nVida: %d\nAtaque: %d\nDefensa: %d\n\n", 
+           p.nombre, p.vida, p.ataque, p.defensa);
+}
+
+int estaDerrotado(Personaje p) {
+    return p.vida <= 0;
+}
+
+int main() {
+    Personaje jugador1 = {"Almighty", 100, 50, 10};
+    Personaje jugador2 = {"Evil Bunny", 80, 20, 5};
+
+    printf("¡Inicio del combate!\n");
+    mostrarEstadisticas(jugador1);
+    mostrarEstadisticas(jugador2);
+
+    while (1) {
+        printf("\nTurno de %s\n", jugador1.nombre);
+        atacar(&jugador1, &jugador2);
+        if (estaDerrotado(jugador2)) {
+            printf("%s ha sido derrotado. ¡%s gana!\n", jugador2.nombre, jugador1.nombre);
+            break;
+        }
+        printf("\nTurno de %s\n", jugador2.nombre);
+        atacar(&jugador2, &jugador1);
+        if (estaDerrotado(jugador1)) {
+            printf("%s ha sido derrotado. ¡%s gana!\n", jugador1.nombre, jugador2.nombre);
+            break;
+        }
+    }
+
+    return 0;
+}
